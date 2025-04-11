@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "figlet": "^1.8.0",
+    "random-word": "^3.0.0",
+    "random-words": "^2.0.1"
+  },
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "math.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module"
+}
