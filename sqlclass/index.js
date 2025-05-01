@@ -1,59 +1,67 @@
 const { faker } = require('@faker-js/faker');
-const mysql = require('mysql2') ;
-let createrandom = () =>{
-    
-        return [
-           faker.string.uuid(),
-           faker.internet.username(), // before version 9.1.0, use userName()
-           faker.internet.email(),
-           faker.internet.password(),
-        ];
-    };
-      
+const mysql = require('mysql2');
+const express = require('express');
+const path = require('path');
 
+const app = express();
 
-// console.log(createrandom());
+// Set view engine
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "/views"));
 
+// MySQL Connection
 const connection = mysql.createConnection({
-    host:'localhost',
-    user:'root',
+    host: 'localhost',
+    user: 'root',
     database: 'sigma_app',
-    password:'satya@69'
+    password: 'satya@69'
 });
 
-//new data inserting
-let q = "INSERT INTO user (id , username , email , password) VALUES ?" ;
-let data =[] ;
+// Home Route
+app.get("/", (req, res) => {
+    const q = 'SELECT COUNT(*) AS count FROM user'; 
 
-for(let i =0 ;i<=100 ;i++) {
-     data.push(createrandom()); //fake users data
-}
+    connection.query(q, (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.send("Some error occurred with the database.");
+        }
+        const count = result[0].count;
+        res.render("home", { count }); 
+    });
+});
 
-try{
-connection.query(q,[data],(err, result)=>{
-    if(err) throw err ;
-    console.log(result) ;
-  
+
+//Show users route
+app.get("/user",(req,res) =>{
+    let q = 'select * from user'
+    connection.query(q, (err, users) => {
+        if (err) {
+            console.log(err);
+            return res.send("Some error occurred with the database.");
+        }
+
+        
+        res.render("showusers.ejs", { users }) ;
+    });
 })
-}
-catch {
-    console.log(err);
-}
 
-connection.end();
 
-// // create the connection
-// const connection = mysql.createConnection({
-//     host: 'localhost',
-//     user: 'root',
-//     password: 'Starsatyajit69',
-//     database: 'MyConnection'
-// });
+//Edit route
+app.get("/user/:id/edit", (req, res) => {
+    let { id } = req.params;
+    let q = `SELECT * FROM user WHERE id= '${id}'`;
 
-// connection.connect((err) => {
-//     if (err) {
-//         console.error('Error connecting to MySQL:', err.message);
-//     } else {
-//         console.log('Connected to MySQL!');
-//     }
-// });
+    connection.query(q, (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.send("Some error occurred with the database.");
+        }
+        let user = result[0]; // Use the query result
+        res.render("edit.ejs", { user }); // Pass the user object to the template
+    });
+});
+
+app.listen(8080, () => {
+    console.log("Server is running on port 8080");
+});
