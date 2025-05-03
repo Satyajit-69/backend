@@ -93,6 +93,55 @@ app.patch("/user/:id", (req, res) => {
     });
 });
 
+//Delete Route
+app.get("/user/:id/delete" ,(req,res)=>{
+    let { id } = req.params;
+    let q = `SELECT * FROM user WHERE id = ?`;
+
+    connection.query(q, [id], (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.send("Some error occurred with the database.");
+        }
+        let user = result[0];
+        res.render("delete.ejs", { user });
+    });
+});
+
+app.delete("/user/:id", (req, res) => {
+    const { id } = req.params; // Extract user ID from the URL
+    const { password: formPass, email: formEmail } = req.body; // Extract form data
+
+    // Fetch the user to validate credentials
+    const fetchUserQuery = `SELECT * FROM user WHERE id = ?`;
+    connection.query(fetchUserQuery, [id], (err, result) => {
+        if (err) {
+            res.send("Some error occurred with the database.");
+        }
+
+        const user = result[0];
+
+        // Validate password and email
+        if (formPass !== user.password) {
+            res.send("Wrong password entered.");
+        }
+
+        if (formEmail !== user.email) {
+            res.send("Please enter the correct email.");
+        }
+
+        // Perform the deletion
+        const deleteQuery = `DELETE FROM user WHERE id = ?`;
+        connection.query(deleteQuery, [id], (err, result) => {
+            if (err) {
+                console.log(err);
+                return res.send("Error deleting user.");
+            }
+
+            res.redirect("/user"); // Redirect to user list after successful deletion
+        });
+    });
+});
 
 app.listen(8080, () => {
     console.log("Server is running on port 8080");

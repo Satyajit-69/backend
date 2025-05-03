@@ -19,10 +19,6 @@
             <th>Username</th>
         </tr>
 
-        <td>123</td>
-        <td>abc@yahoo.com</td>
-        <td>Meow</td>
-   
 <% for(user of users) { %>
     <tr>
         <td>  <%= user.id  %>  </td>
@@ -31,6 +27,13 @@
         <td>
             <form method="GET" action="/user/<%= user.id %>/edit">
               <button>edit username</button>
+            </form>
+        </td>
+
+
+        <td>
+            <form method="GET" action="/user/<%= user.id %>/delete">
+              <button>delete</button>
             </form>
         </td>
     </tr>
