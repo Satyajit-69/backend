@@ -4,6 +4,10 @@ const express = require('express');
 const path = require('path');
 const methodOverride = require("method-override");
 const app = express();
+const { v4: uuidv4 } = require('uuid');
+
+
+
 
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
@@ -142,6 +146,33 @@ app.delete("/user/:id", (req, res) => {
         });
     });
 });
+
+
+//Create a new post
+app.get("/user/add" ,(req,res) =>{
+    res.render("add.ejs") ;
+    
+})
+app.post("/user/add", (req, res) => {
+    console.log("POST /user/add triggered");
+    console.log("Form Data:", req.body); // Log the form data
+
+    const id = uuidv4();
+    const { username, email, password } = req.body;
+
+    const insertQuery = `INSERT INTO user (id, username, email, password) VALUES (?, ?, ?, ?)`;
+
+    connection.query(insertQuery, [id, username, email, password], (err, result) => {
+        if (err) {
+            console.log("DB Error:", err.message);
+            return res.send("Error adding user to the database.");
+        }
+
+        console.log("User inserted:", result);
+        res.redirect("/user");
+    });
+});
+
 
 app.listen(8080, () => {
     console.log("Server is running on port 8080");
