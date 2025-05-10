@@ -25,3 +25,35 @@ const mongoose = require("mongoose") ;
 
   //class
   const User = mongoose.model("User",userSchema);
+//   const Employee = mongoose.model("Employee",userSchema);
+
+
+//Inserting Data By One
+
+  const user2 = new User({
+    name : "Edam",
+    email: "Edam@yahoo.in" ,
+    age:36,
+
+  })
+
+  user2
+  .save() 
+  .then((res) =>{
+    console.log(res);
+  })
+
+  .catch(err =>{
+    console.log(err);
+  })
+
+
+  //Inserting Multiple data
+ 
+  User.insertMany([
+    {name:"Tony",email:"tony@gmail.com",age:50} ,
+    {name:"Asa",email:"asa@gmail.com",age:89},
+  ])
+  .then((res) =>{
+    console.log(res);
+  })
