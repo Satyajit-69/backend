@@ -37,9 +37,40 @@ const mongoose = require("mongoose") ;
 
   })
 
-  user2
-  .save() 
-  .then((res) =>{
+//   user2
+//   .save() 
+//   .then((res) =>{
+//     console.log(res);
+//   })
+
+//   .catch(err =>{
+//     console.log(err);
+//   })
+
+
+  //Inserting Multiple data
+ 
+  // User.insertMany([
+  //   {name:"Tony",email:"tony@gmail.com",age:50} ,
+  //   {name:"Asa",email:"asa@gmail.com",age:89},
+  // ])
+  // .then((res) =>{
+  //   console.log(res);
+  // })
+
+
+  //find 
+  User.find({age : {$gt :48 }})
+  .then((res) => {
+    console.log(res);
+  })
+
+  .catch(err =>{
+    console.log(err);
+  })
+  //findOne
+  User.findOne({age : {$gt :48 }})
+  .then((res) => {
     console.log(res);
   })
 
@@ -47,13 +78,13 @@ const mongoose = require("mongoose") ;
     console.log(err);
   })
 
-
-  //Inserting Multiple data
- 
-  User.insertMany([
-    {name:"Tony",email:"tony@gmail.com",age:50} ,
-    {name:"Asa",email:"asa@gmail.com",age:89},
-  ])
-  .then((res) =>{
+  //findById
+  User.findById("681edec454217800d5d5e07c")
+  .then((res =>{
     console.log(res);
+  }))
+  .catch(err =>{
+    console.log(err);
   })
+
+
