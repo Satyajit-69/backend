@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini whatsApp</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h3>All chats</h3>
+    <form method="GET" action="/chats/new"> <button>new chat</button></form>
+
+<%   for(let chat of chats){ %>
+        <div class="chat">
+            
+            <p class="from"><i>from : <%= chat.from  %> </i></p>
+             <hr>
+            <div class="message">
+             <p>msg : <%= chat.msg  %></p> 
+            </div>
+             <hr>
+            <p class="receive"><i>received by : <%= chat.to  %> </i></p>
+        </div>
+       
+     <% } %> 
+
+</body>
+</html>

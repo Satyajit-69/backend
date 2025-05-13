@@ -24,12 +24,18 @@ const mongoose = require("mongoose") ;
     title : {
         type : String,
         require : true , //minimum field value available
+
     },
     author : {
         type: String ,
     },
     price : {
         type : Number ,
+        min:1 ,
+    },
+    discount : {
+        type : Number ,
+        default : 0 
     }
     })
 
@@ -37,9 +43,8 @@ const mongoose = require("mongoose") ;
     
 
     let book1 = new book({
-        title :"Mathematics II" ,
-        author:"RD SHARMA" ,
-        price:687
+        title :"Comics" ,   
+        price: -100 ,
     }) ;
 
     book1
