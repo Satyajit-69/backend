@@ -11,7 +11,7 @@ to : {
 },
 msg :{
 type: String ,
-maxLength : 50 ,
+maxLength : [50,"please enter between 50 charecters"] ,
 },
 created_at : {
 type: Date ,

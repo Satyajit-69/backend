@@ -1,6 +1,6 @@
 body{
     margin-left: 20px;
-
+  background-color: rgba(234, 231, 214, 0.487);
   }
 
   .chat{
@@ -17,9 +17,10 @@ body{
 
        
   .message {
-            display: flex;
+            
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
+            
              background: #00c8ff;
              padding: 16px;
              border-radius: 10px;
@@ -27,7 +28,7 @@ body{
             color: rgb(255, 255, 255);
                        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
             -webkit-text-stroke: 1px solid yellow;
-            border: 1px solid greenyellow;
+            border: 1px solid rgb(0, 0, 0);
         }
 
 button {
@@ -45,4 +46,38 @@ button {
 button:hover {
     background: linear-gradient(45deg, #f06595, #ff6b6b);
     transform: scale(1.05);
+}
+
+.message button {
+  font-size: 18px;
+  border: 1px solid white;
+  background: linear-gradient(45deg, #01aaff, #000000);
+  padding: 8px;
+}
+
+.options {
+  
+  display: flex;
+  justify-content: center; /* Center the buttons horizontally */
+  gap: 15px; /* Adds more spacing between the buttons */
+  padding: 10px; /* Adds padding inside the options div */
+}
+
+.options button {
+  width: 80px; /* Set a fixed width for the buttons */
+  padding: 8px; /* Adjust padding for better proportions */
+  font-size: 14px; /* Adjust font size for better readability */
+  border-radius: 5px; /* Rounds the corners */
+  background: linear-gradient(45deg, #00ffea, #ffffff); /* Gradient background */
+  color: rgb(0, 0, 0);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  text-align: center; /* Centers the text inside the button */
+}
+
+.options button:hover {
+  background: linear-gradient(45deg, #f06595, #ff6b6b); /* Hover effect */
+  transform: scale(1.05); /* Slightly enlarges the button on hover */
 }
