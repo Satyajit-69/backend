@@ -1,5 +1,4 @@
-  
-  body{
+body{
     margin-left: 20px;
 
   }
@@ -7,7 +6,7 @@
   .chat{
             background: aliceblue;
             font-family: Verdana, Geneva, Tahoma, sans-serif;
-            color: whie;
+            color: rgb(0, 0, 0);
             padding: 20px;
             border-radius: 10%;
             margin: 10px;
@@ -30,4 +29,20 @@
             -webkit-text-stroke: 1px solid yellow;
             border: 1px solid greenyellow;
         }
-      
+
+button {
+    background: linear-gradient(45deg, #ff6b6b, #f06595);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+button:hover {
+    background: linear-gradient(45deg, #f06595, #ff6b6b);
+    transform: scale(1.05);
+}
