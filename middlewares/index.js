@@ -10,7 +10,7 @@ const app = express() ;
 //  next() ;
 // })
 
-app.use("/api" ,(req,res,next) =>{
+ let check = (req,res,next) =>{
 
     let {token} = req.query ;
 
@@ -18,10 +18,10 @@ app.use("/api" ,(req,res,next) =>{
     next();
     }
     res.send("access denied :(") ;
-})
+}
 
 
-app.get("/api" ,(req,res) =>{
+app.get("/api" ,check,(req,res) =>{
     res.send("data");
 })
 
