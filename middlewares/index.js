@@ -2,23 +2,39 @@ const express = require("express") ;
 const { log } = require("node:console");
 const app = express() ;
 
-//app.use (middleware) 
 
+//logger -> Morgan
 // app.use((req,res,next) =>{
-//     console.log("I am a middleware");
-//     next();
-// }) 
+//  req.time = new Date(Date.now()).toString() ;
+//  console.log(req.method, req.hostname , req.path , req.time);
+//  next() ;
+// })
 
+app.use("/api" ,(req,res,next) =>{
 
-app.use((req,res,next) =>{
- req.time = new Date(Date.now()).toString() ;
- console.log(req.method, req.hostname , req.path , req.time);
- next() ;
+    let {token} = req.query ;
+
+    if(token === "giveacces"){
+    next();
+    }
+    res.send("access denied :(") ;
 })
+
+
+app.get("/api" ,(req,res) =>{
+    res.send("data");
+})
+
 
 app.get("/" ,(req,res) => {
     res.send("Hi ! I am root") ;
 }) ;
+
+
+//Error - 404
+app.use((req,res) =>{
+    res.send("page not found :(")
+})
 
 
 app.get("/random" ,(req,res) => {
