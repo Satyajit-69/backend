@@ -24,27 +24,33 @@ const mongoose = require("mongoose") ;
     title : {
         type : String,
         require : true , //minimum field value available
-
     },
     author : {
         type: String ,
     },
     price : {
         type : Number ,
-        min:1 ,
+        min : [1,"please enter a valid price"],
     },
-    discount : {
-        type : Number ,
-        default : 0 
+    discount: {
+        type :Number ,
+        default: 0 ,
+    },
+    genre :[String],
+    catergory : {
+        type : String ,
+        enum:["fiction","non-fiction"],
     }
+
     })
 
     const book = mongoose.model("Book",bookSchema) ;
     
 
     let book1 = new book({
-        title :"Comics" ,   
-        price: -100 ,
+        title :"Mathematics II" ,
+        price:0 ,
+        catergory :"fiction"
     }) ;
 
     book1

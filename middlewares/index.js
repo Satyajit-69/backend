@@ -1,6 +1,8 @@
 const express = require("express") ;
-const { log } = require("node:console");
+const { log, error } = require("node:console");
 const app = express() ;
+const expressError = require("./ExpressError");
+const ExpressError = require("./ExpressError");
 
 
 //logger -> Morgan
@@ -17,29 +19,37 @@ const app = express() ;
     if(token === "giveacces"){
     next();
     }
-    res.send("access denied :(") ;
+    throw new expressError(401,"access denied") ;
 }
+
+app.get("/random" ,(req,res) => {
+    res.send("this is a random page") ;
+})
 
 
 app.get("/api" ,check,(req,res) =>{
     res.send("data");
 })
 
-
-app.get("/" ,(req,res) => {
-    res.send("Hi ! I am root") ;
-}) ;
-
-
-//Error - 404
-app.use((req,res) =>{
-    res.send("page not found :(")
+app.get("/err",(req,res)=>{
+    abcd = abcd ;
 })
 
 
-app.get("/random" ,(req,res) => {
-    res.send("this is a random page") ;
+
+app.get("/admin",(req,res)=>{
+    //What error and message (customize)
+    throw new ExpressError(403,"Access to admin is Forbidden");
 })
+
+
+//custom error handling
+app.use((err , req , res ,next) =>{
+    let {status = 500, message ="Some Error Occured"} = err ;
+    res.status(status).send(message);
+
+})
+
 
 app.listen(3000,()=>{
  console.log("server listing on port 3000");
