@@ -16,6 +16,7 @@ async function main() {
 const userSchema = new Schema({   
    
     username : String ,
+    //embedding data
     addresses : [
         {    _id:false ,
             location : String ,

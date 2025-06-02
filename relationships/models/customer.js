@@ -26,6 +26,7 @@ const orderSchema = new Schema ({
 
 const customerSchema = new Schema ({
     name : String ,
+    //storing the reference of the object 
     orders:[{
         type : Schema.Types.ObjectId, //wil show only id 
         ref:"Order" , //we are refering to Order Obj
