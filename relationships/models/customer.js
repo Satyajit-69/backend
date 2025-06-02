@@ -38,39 +38,48 @@ const customerSchema = new Schema ({
 const Order = mongoose.model("Order",orderSchema) ;
 const Customer = mongoose.model("Customer" ,customerSchema) ;
 
-const addOders = async() =>{
-    let res = await Order.insertMany([
-        {item : "Samosa" ,price :12 ,} ,
-        {item : "Idili" , price: 5} ,
-        {item : "Mango" , price : 6} ]
-    ) ;
+// //orders - add
+// const addOders = async() =>{
+//     let res = await Order.insertMany([
+//         {item : "Samosa" ,price :12 ,} ,
+//         {item : "Idili" , price: 5} ,
+//         {item : "Mango" , price : 6} ]
+//     ) ;
 
-    console.log(res) ;
-}
+//     console.log(res) ;
+// }
 
-addOders() ;
-
-
+// addOders() ;
 
 
-const addCustomer = async () => {
-    let cust1 = new Customer({
-        name: "Rahul Kumar"
-    });
-    let order1 = await Order.findOne({item: "Samosa"});
-    let order2 = await Order.findOne({item: "Idili"});
+
+
+// const addCustomer = async () => {
+//     let cust1 = new Customer({
+//         name: "Rahul Kumar"
+//     });
+//     let order1 = await Order.findOne({item: "Samosa"});
+//     let order2 = await Order.findOne({item: "Idili"});
     
-    // push only the IDs
-    if (order1) cust1.orders.push(order1);
-    if (order2) cust1.orders.push(order2);
+//     // push only the IDs
+//     if (order1) cust1.orders.push(order1.id);
+//     if (order2) cust1.orders.push(order2.id);
 
-    let res = await cust1.save();
-    console.log(res);
+//     let res = await cust1.save();
+//     console.log(res);
+// }
+
+
+// addCustomer() ;
+
+//find all customers
+
+const findCust = async () => {
+    let res = await Customer.find({}).populate("orders")
+    console.log(res[0]) ;
 }
 
-
-addCustomer() ;
-
+findCust() ;
 // const deleteAllCustomers = async () => {
 //     await Customer.deleteMany({});
 //     console.log("All customers deleted");
