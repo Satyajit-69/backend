@@ -18,7 +18,7 @@ const userSchema = new Schema({
     username : String ,
     //embedding data
     addresses : [
-        {    _id:false ,
+        {    _id:false , //to not store the id 
             location : String ,
             city : String,
         },

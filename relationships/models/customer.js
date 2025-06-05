@@ -33,7 +33,12 @@ const customerSchema = new Schema ({
     }]
 }) ;
 
-
+    customerSchema.post("findOneAndDelete", async (customer) => {
+        if (customer && customer.orders && customer.orders.length) {
+            let res = await Order.deleteMany({ _id: { $in: customer.orders } });
+            console.log(res);
+        }
+    });
 
 
 const Order = mongoose.model("Order",orderSchema) ;
@@ -55,36 +60,57 @@ const Customer = mongoose.model("Customer" ,customerSchema) ;
 
 
 
-// const addCustomer = async () => {
-//     let cust1 = new Customer({
-//         name: "Rahul Kumar"
-//     });
-//     let order1 = await Order.findOne({item: "Samosa"});
-//     let order2 = await Order.findOne({item: "Idili"});
+const addCustomer = async () => {
+    let cust1 = new Customer({
+        name: "Rahul Kumar"
+    });
+    let order1 = await Order.findOne({item: "Samosa"});
+    let order2 = await Order.findOne({item: "Idili"});
     
-//     // push only the IDs
-//     if (order1) cust1.orders.push(order1.id);
-//     if (order2) cust1.orders.push(order2.id);
+    // push only the IDs (ref to the child)
+    if (order1) cust1.orders.push(order1.id);
+    if (order2) cust1.orders.push(order2.id);
 
-//     let res = await cust1.save();
-//     console.log(res);
-// }
+    let res = await cust1.save();
+    console.log(res);
+}
 
 
 // addCustomer() ;
 
 //find all customers
+    // const findCust = async () => {
+    //     let res = await Customer.find({}).populate("orders")
+    //     console.log(res[0]) ;
+    // }
 
-const findCust = async () => {
-    let res = await Customer.find({}).populate("orders")
-    console.log(res[0]) ;
-}
+    // findCust() ;
 
-findCust() ;
-// const deleteAllCustomers = async () => {
-//     await Customer.deleteMany({});
-//     console.log("All customers deleted");
-// };
+     //add customer
+     const addCust = async() =>{
+        let newCust = new Customer ({
+            name :"karan-arjun" ,
+        }) ;
+        let newOrder = new Order({
+            item : "Bara" ,
+            price :10 ,
+        })
 
-// deleteAllCustomers();
+        newCust.orders.push(newOrder) ;
 
+        await newOrder.save() ;
+        await newCust.save() ;
+
+        console.log("added new customer") ;
+     }
+
+    //  addCust() ;
+
+    //deleteCustomer 
+
+    const deleteCust = async () =>{
+        let data = await Customer.findByIdAndDelete('6841225018f2d60f2e9cdf24') ;
+        console.log(data) ;
+    }
+
+    deleteCust() ;

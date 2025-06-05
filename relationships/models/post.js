@@ -22,6 +22,7 @@ const userSchema = new Schema({
 const postSchema = new Schema({
     content : String ,
     likes:Number ,
+    //parent
     user :{
         type:Schema.Types.ObjectId ,
         ref : "User"
